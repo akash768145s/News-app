@@ -20,8 +20,7 @@ const Newsapp = () => {
       console.log(jsonData.articles);
 
       if (jsonData.articles) {
-        let dt = jsonData.articles.slice(0, 10);
-        setNewsData(dt);
+        setNewsData(jsonData.articles.slice(0, 10));
       } else {
         console.error("No articles found");
       }
@@ -35,12 +34,12 @@ const Newsapp = () => {
   }, []);
 
   const handleInput = (e) => {
-    console.log(e.target.value);
     setSearch(e.target.value);
   };
 
   const userInput = (event) => {
     setSearch(event.target.value);
+    getData(); // Fetch new data based on category
   };
 
   return (
@@ -50,8 +49,12 @@ const Newsapp = () => {
           <h1>Trendy News</h1>
         </div>
         <ul style={{ display: "flex", gap: "11px" }}>
-          <a style={{ fontWeight: 600, fontSize: "17px" }}>All News</a>
-          <a style={{ fontWeight: 600, fontSize: "17px" }}>Trending</a>
+          <a href="#" style={{ fontWeight: 600, fontSize: "17px" }}>
+            All News
+          </a>
+          <a href="#" style={{ fontWeight: 600, fontSize: "17px" }}>
+            Trending
+          </a>
         </ul>
         <div className="searchBar">
           <input
@@ -78,7 +81,7 @@ const Newsapp = () => {
         {/* <button onClick={userInput} value="fitness">Fitness</button> */}
         {/* <button onClick={userInput} value="business">Business</button> */}
       </div>
-      <div>{newsData ? <Card data={newsData} /> : null}</div>
+      <div>{newsData ? <Card data={newsData} /> : <p>Loading...</p>}</div>
     </div>
   );
 };
