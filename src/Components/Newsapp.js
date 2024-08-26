@@ -7,13 +7,27 @@ const Newsapp = () => {
   const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 
   const getData = async () => {
-    const response = await fetch(
-      `https://newsapi.org/v2/everything?q=${search}&apiKey=${API_KEY}`
-    );
-    const jsonData = await response.json();
-    console.log(jsonData.articles);
-    let dt = jsonData.articles.slice(0, 10);
-    setNewsData(dt);
+    try {
+      const response = await fetch(
+        `https://newsapi.org/v2/everything?q=${search}&apiKey=${API_KEY}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const jsonData = await response.json();
+      console.log(jsonData.articles);
+
+      if (jsonData.articles) {
+        let dt = jsonData.articles.slice(0, 10);
+        setNewsData(dt);
+      } else {
+        console.error("No articles found");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
