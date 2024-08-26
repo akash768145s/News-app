@@ -5,7 +5,6 @@ const Newsapp = () => {
   const [search, setSearch] = useState("india");
   const [newsData, setNewsData] = useState(null);
   const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
-
   const getData = async () => {
     try {
       const response = await fetch(
